@@ -16,7 +16,7 @@ namespace FolderMapper.Services
         /// <summary>
         /// Source directory, when the program is currently
         /// </summary>
-        private FmDirectory Source { get;}
+        private FmDirectory Source { get; }
         /// <summary>
         /// Where the files will end up
         /// </summary>
@@ -26,6 +26,8 @@ namespace FolderMapper.Services
         /// </summary>
         private FmConfig SystemConfig { get; set; }
 
+        private DirImage SourceDirImage { get; set; }
+
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -33,10 +35,11 @@ namespace FolderMapper.Services
         /// <param name="destinationUrl"></param>
         public MapperService(string sourceDir, string destinationUrl)
         {
-            Source = new FmDirectory{Url = sourceDir};
-            Destination = new FmDirectory {Url = destinationUrl};
+            Source = new FmDirectory { Url = sourceDir };
+            Destination = new FmDirectory { Url = destinationUrl };
             //Get the config from the .fm folder
-            SetupSysConfig();
+            //SetupSysConfig();
+            BuildSourceImage();
         }
 
         /// <summary>
@@ -79,5 +82,10 @@ namespace FolderMapper.Services
                 {
                     DestinationDir = Source.Url
                 });
+
+        private void BuildSourceImage()
+        {
+            SourceDirImage = new DirImage(Source.Url);
+        }
     }
 }
